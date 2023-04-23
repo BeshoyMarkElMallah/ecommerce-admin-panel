@@ -57,8 +57,8 @@ export default function ProductForm({
     }
   }
 
-  function updateImagesOrder(newImages){
-    setImages(newImages)
+  function updateImagesOrder(newImages) {
+    setImages(newImages);
   }
 
   return (
@@ -70,24 +70,30 @@ export default function ProductForm({
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <label>Category</label>
+      <select>
+        <option value="">Uncategorized</option>
+      </select>
+      
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
-      <ReactSortable 
-      list={images} 
-      className="flex flex-wrap gap-1"
-      setList={updateImagesOrder}>
-
-      {!!images?.length && images.map(image => (
-        <div key={image} className="h-24">
-          <img src={image} alt="img uploaded" className="rounded-lg" />
-        </div>
-      ))}
-      </ReactSortable>
-      {isUploading &&(
-        <div className="h-24 rounded-md flex items-center ">
-          <Spinner/>
-        </div>
-      )}
+        <ReactSortable
+          list={images}
+          className="flex flex-wrap gap-1"
+          setList={updateImagesOrder}
+        >
+          {!!images?.length &&
+            images.map((image) => (
+              <div key={image} className="h-24">
+                <img src={image} alt="img uploaded" className="rounded-lg" />
+              </div>
+            ))}
+        </ReactSortable>
+        {isUploading && (
+          <div className="h-24 rounded-md flex items-center ">
+            <Spinner />
+          </div>
+        )}
         <label className="w-24 h-24 text-sm text-center text-gray-500 flex items-center justify-center gap-1 rounded-md bg-gray-200 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
