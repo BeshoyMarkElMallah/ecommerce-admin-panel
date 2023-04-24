@@ -3,11 +3,15 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 import mime from "mime-types";
 import dotenv from "dotenv";
+import { mongooseConnect } from "@/lib/mongoose";
+import { isAdminRequest } from "./auth/[...nextauth]";
 dotenv.config();
 
 const bucketName = "besho-next-ecommerce";
 
 export default async function handle(req, res) {
+  await mongooseConnect();
+  await isAdminRequest(req, res);
   const form = new multiparty.Form();
   const { fields, files } = await new Promise((resolve, reject) => {
     form.parse(req, async (err, fields, files) => {
